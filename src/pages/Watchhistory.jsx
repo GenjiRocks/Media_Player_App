@@ -3,7 +3,7 @@ import Header from '../Components/Header'
 function Watchhistory() {
   return (
     <>
-    <Header />
+
     </>
   )
 }
