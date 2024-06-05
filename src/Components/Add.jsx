@@ -24,15 +24,22 @@ function Add() {
 
     <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <h5>Upload New Video</h5>
         </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+        <Modal.Body>
+          <p>Please fill the following details</p>
+          <form className='border p-3 rounded border-secondary'>
+            <input type="text" placeholder='Video Caption' className='form-control'/>
+            <input type="text" placeholder='Video Image' className='form-control mt-3'/>
+            <input type="text" placeholder='Video URL' className='form-control mt-3'/>
+          </form>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Cancel
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
+          <Button variant="warning" onClick={handleClose}>
+            Upload
           </Button>
         </Modal.Footer>
       </Modal>
