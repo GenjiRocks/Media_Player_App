@@ -18,7 +18,7 @@ function VideoCard() {
   return (
     <>
        <Card style={{ width: '100%'}}>
-      <Card.Img  onClick={handleShow} variant="top" src="https://media1.tenor.com/m/TryWlGm_MlQAAAAd/shah-rukh-khan-music-day.gif" width={'100%'} height={'300px'} />
+      <Card.Img  onClick={handleShow} style={{cursor:'pointer'}} variant="top" src="https://media1.tenor.com/m/TryWlGm_MlQAAAAd/shah-rukh-khan-music-day.gif" width={'100%'} height={'300px'} />
       <Card.Body className='d-flex align-items-center mt-3'>
       <p>Film Name</p>
         <Button  variant="danger ms-auto"><FontAwesomeIcon icon={faTrash} /></Button>
