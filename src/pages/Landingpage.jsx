@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import {Link} from 'react-router-dom'
 
 function Landingpage() {
   return (
@@ -12,7 +13,7 @@ function Landingpage() {
     <p style={{textAlign:'justify'}}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit vero nulla quo suscipit magnam at, omnis quaerat. Cumque, iste quibusdam iusto sit corporis illo earum quo rerum, ex voluptatum asperiores!
     Blanditiis fugit quod corporis praesentium odit consequatur quisquam animi laborum repellat. Tenetur sunt error nisi provident itaque consequatur quae quam. Perferendis id sint enim ducimus ab nisi nesciunt maxime itaque?
     Mollitia blanditiis repudiandae adipisci aliquam odit cumque, iure nesciunt quod, optio sequi consequatur illum earum quos obcaecati commodi, maxime numquam doloremque quia! Dolor dolorum culpa, rerum nobis corporis officiis assumenda.</p>
-    <button className='btn btn-warning mt-5'>Get Started</button>
+    <button className='btn btn-warning mt-5'><Link to={'/home'} style={{textDecoration:'none',color:'white'}}>Get Started</Link></button>
       </div>
       
       <div className="col-md-5 d-flex justify-content-center align-items-center">
