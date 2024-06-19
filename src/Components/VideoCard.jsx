@@ -5,28 +5,31 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
-import { getVideoApi } from '../services/allApi';
+import { deleteVideoApi, getVideoApi } from '../services/allApi';
 
 
 
-function VideoCard({content}) {
+function VideoCard({content,setDeleteStatus}) {
   console.log(content);
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    // const getVideo =async()=>{
-    //   const result = await getVideoApi
-    // }
-
+    // Function for the delete button
+    const handleDelete = async (id)=>{
+      const result = await deleteVideoApi(id)
+      setDeleteStatus(result.data)
+      // console.log(e);
+    }
+    
   return (
     <>
        <Card style={{ width: '100%'}}>
       <Card.Img  onClick={handleShow} style={{cursor:'pointer'}} variant="top" src={content?.Image} width={'100%'} height={'300px'} />
       <Card.Body className='d-flex align-items-center mt-3'>
       <p>{content?.caption}</p> {/* Add ?. since its a time delay being happening */}
-        <Button  variant="danger ms-auto"><FontAwesomeIcon icon={faTrash} /></Button>
+        <Button onClick={()=>{handleDelete(content?.id)}}  variant="danger ms-auto"><FontAwesomeIcon icon={faTrash} /></Button>
       </Card.Body>
     </Card>
 

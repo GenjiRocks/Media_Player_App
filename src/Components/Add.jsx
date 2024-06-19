@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-function Add() {
+function Add({setAddStatus}) {
 
   // Create a state to hold data from input
 
@@ -76,6 +76,7 @@ function Add() {
       console.log(result);
       if(result.status>=200 && result.status<300){
         toast.success('Video uploaded successfully')
+        setAddStatus(result.data)
         handleClose();
       }
       else{
