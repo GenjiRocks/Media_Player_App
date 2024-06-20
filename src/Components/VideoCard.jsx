@@ -5,16 +5,42 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
-import { deleteVideoApi, getVideoApi } from '../services/allApi';
+import { addToHistoryApi, deleteVideoApi, getVideoApi } from '../services/allApi';
 
 
 
 function VideoCard({content,setDeleteStatus}) {
-  console.log(content);
+  // console.log(content);
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = async () =>{
+      setShow(true);
+      let caption = content?.caption
+      let url = content?.url
+      let time = new Date()
+      let options = {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      };
+      let timestamp = new Intl.DateTimeFormat("en-GB", options).format(time)
+      console.log(timestamp);
+
+      const reqbody = {
+        caption,
+        url,
+        timestamp
+      }
+
+      // Api to add to watch history
+      const result = await addToHistoryApi(reqbody)
+      console.log(result);
+
+    } 
 
     // Function for the delete button
     const handleDelete = async (id)=>{

@@ -12,6 +12,7 @@ function View({addStatus}) {
 
   const getVideo = async()=>{
   const result = await getVideoApi()
+  console.log(result.data);
   setVideoDetails(result.data)
   
   }
@@ -22,7 +23,7 @@ function View({addStatus}) {
 
   
 
-  console.log(videodetails);
+  // console.log(videodetails);
 
   return (
     
