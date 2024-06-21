@@ -28,7 +28,7 @@ function Category() {
     //api call to add category
     const result = await addCategoryApi(reqBody)
     console.log(result);
-    if(result.status>=200 || result.status<300){
+    if(result.status>=200 & result.status<300){
       handleClose()
       toast.success('Video uploaded successfully')
       getAllCategory()
@@ -37,10 +37,11 @@ function Category() {
     toast.info('Please fill form completely')
    }
   }
-
+ 
+  // Getting data from the server
   const getAllCategory = async()=>{
     const result = await getCategoryApi()
-    if(result.status>=200 || result.status<300){
+    if(result.status>=200 && result.status<300){
       setCategoryDetails(result.data)
     }
     
