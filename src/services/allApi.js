@@ -30,3 +30,19 @@ export const getHistoryApi = async ()=>{
 export const deleteFromHistoryApi = async(id)=>{
     return await commonApi('DELETE',`${serverUrl}/history/${id}`,{})
 }
+
+// api to add to category section
+export const addCategoryApi = async(reqBody)=>{
+    return await commonApi('POST',`${serverUrl}/category`,reqBody)
+}
+
+// api to get data from category 
+export const getCategoryApi = async ()=>{
+    return await commonApi('GET',`${serverUrl}/category`,"")
+}
+
+// api to delete from categoty section
+export const deleteCategoryApi = async(id)=>{
+    return await commonApi('DELETE',`${serverUrl}/category/${id}`,{})
+}
+
