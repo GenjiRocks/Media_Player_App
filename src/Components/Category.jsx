@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import VideoCard from './VideoCard';
 import { useState } from 'react';
-import { addCategoryApi, getCategoryApi } from '../services/allApi';
+import { addCategoryApi, deleteCategoryApi, deleteFromHistoryApi, getCategoryApi, getSingleVideoApi, updateCategoryApi} from '../services/allApi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -48,10 +48,49 @@ function Category() {
     console.log(result);
   }
 
+  // Deleting data from the catergory section
+  const deleteCategory = async (id)=>{
+    const result = await deleteCategoryApi(id)
+    getAllCategory()
+    console.log(result);
+  }
+
+  // june24 video drag and dropping
+  const DragOver =(e)=>{
+    e.preventDefault();
+  }
+
+  const videoDrag = async (e,categoryID)=>{
+    console.log(`category id is`,categoryID);
+
+    const videoID = e.dataTransfer.getData("videoID")
+    console.log(`video id is`,videoID);
+    // getting video details from the backend, {data} is object destructiring
+    const {data} = await getSingleVideoApi(videoID)
+    console.log(data);
+
+    const selectedCategory = categoryDetails.find((item)=>item.id==categoryID)
+    // check if categoryId already present in allvideo using array method
+    if(selectedCategory.allvideo.find((item)=>item.id==data.id)){
+      toast.info('Video already present in this category')
+    }else{
+      selectedCategory.allvideo.push(data)
+     
+      toast.success('Video pushed to allvideo')
+    }
+    await updateCategoryApi(selectedCategory,categoryID)
+  }
+
+  
+
+
+
   // update on page load useeffect for getallcateory
   useEffect(()=>{
     getAllCategory()
   },[])
+
+
 
   return (
     <>
@@ -61,10 +100,10 @@ function Category() {
 
 
     {categoryDetails?.length>0?categoryDetails.map((item)=>(
-       <div className='border border-secondary mt-3 rounded p-3 ms-4 ms-md-0'>
+       <div className='border border-secondary mt-3 rounded p-3 ms-4 ms-md-0' droppable onDragOver={(e)=>DragOver(e)} onDrop={(e)=>videoDrag(e,item.id)}>
        <div className='d-flex mb-3'>
        <p>{item.CategoryName}</p>
-       <Button  variant="danger ms-auto"><FontAwesomeIcon icon={faTrash} /></Button>
+       <Button onClick={()=>deleteCategory(item.id)}  variant="danger ms-auto"><FontAwesomeIcon icon={faTrash} /></Button>
        </div>
          {/* <VideoCard/> */}
        </div>))

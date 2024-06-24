@@ -46,3 +46,14 @@ export const deleteCategoryApi = async(id)=>{
     return await commonApi('DELETE',`${serverUrl}/category/${id}`,{})
 }
 
+
+// June24
+// api to get a single video
+export const getSingleVideoApi = async(id)=>{
+    return await commonApi('GET',`${serverUrl}/videos/${id}`,"")
+    }
+
+// Api to update the category allvideo
+export const updateCategoryApi = async(reqBody,id)=>{
+    return await commonApi('PUT',`${serverUrl}/category/${id}`,reqBody)
+    }

@@ -48,10 +48,17 @@ function VideoCard({content,setDeleteStatus}) {
       setDeleteStatus(result.data)
       // console.log(e);
     }
+
+    // June 24th
+    // Function to drag the card with unique id
+    const videoDrag= (e,id)=>{
+      console.log(`The dragged video ID is `,id);
+      e.dataTransfer.setData("videoID",id)
+    }
     
   return (
     <>
-       <Card style={{ width: '100%'}}>
+       <Card style={{ width: '100%'}} draggable onDragStart={(e)=>videoDrag(e,content?.id)} >
       <Card.Img  onClick={handleShow} style={{cursor:'pointer'}} variant="top" src={content?.Image} width={'100%'} height={'300px'} />
       <Card.Body className='d-flex align-items-center mt-3'>
       <p>{content?.caption}</p> {/* Add ?. since its a time delay being happening */}
