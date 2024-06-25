@@ -16,6 +16,16 @@ function View({addStatus}) {
   setVideoDetails(result.data)
   
   }
+  // June25
+
+  const DragOver = (e)=>{
+    e.preventDefault()
+  }
+
+  const videoDrop = (e)=>{
+    const{videoID,categoryID } = JSON.parse(e.dataTransfer.getData("dataShared"))
+    console.log(videoID, categoryID);
+  }
 
   useEffect(()=>{
     getVideo()
@@ -27,7 +37,7 @@ function View({addStatus}) {
 
   return (
     
-      <Row className='w-100 ms-4 ms-md-0'>
+      <Row className='w-100 ms-4 ms-md-0' droppble onDragOver={(e)=>DragOver(e)} onDrop={(e)=>videoDrop(e)}>
         {videodetails?.length>0?videodetails?.map((item)=>((<Col xs={12} md={6} lg={4} xl={3} className='d-flex justify-content-center align-items-center'>
         <VideoCard setDeleteStatus={setDeleteStatus} content = {item}/> {/* Passing data using props to VideoCard.jsx */}
       </Col>)))  

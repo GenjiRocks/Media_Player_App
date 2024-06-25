@@ -9,7 +9,7 @@ import { addToHistoryApi, deleteVideoApi, getVideoApi } from '../services/allApi
 
 
 
-function VideoCard({content,setDeleteStatus}) {
+function VideoCard({content,setDeleteStatus,isPresent}) {
   // console.log(content);
     const [show, setShow] = useState(false);
 
@@ -58,11 +58,11 @@ function VideoCard({content,setDeleteStatus}) {
     
   return (
     <>
-       <Card style={{ width: '100%'}} draggable onDragStart={(e)=>videoDrag(e,content?.id)} >
-      <Card.Img  onClick={handleShow} style={{cursor:'pointer'}} variant="top" src={content?.Image} width={'100%'} height={'300px'} />
+       <Card style={{ width: '100%'}} className='mt-4' draggable onDragStart={(e)=>videoDrag(e,content?.id)} >
+      {!isPresent && < Card.Img  onClick={handleShow} style={{cursor:'pointer'}} variant="top" src={content?.Image} width={'100%'} height={'300px'} />}
       <Card.Body className='d-flex align-items-center mt-3'>
       <p>{content?.caption}</p> {/* Add ?. since its a time delay being happening */}
-        <Button onClick={()=>{handleDelete(content?.id)}}  variant="danger ms-auto"><FontAwesomeIcon icon={faTrash} /></Button>
+       {!isPresent && <Button onClick={()=>{handleDelete(content?.id)}}  variant="danger ms-auto"><FontAwesomeIcon icon={faTrash} /></Button>} 
       </Card.Body>
     </Card>
 

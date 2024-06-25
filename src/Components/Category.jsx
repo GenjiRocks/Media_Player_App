@@ -1,13 +1,14 @@
 import { faPencil, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect } from 'react'
-import Button from 'react-bootstrap/Button';
+import {Button,Row,Col} from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import VideoCard from './VideoCard';
 import { useState } from 'react';
 import { addCategoryApi, deleteCategoryApi, deleteFromHistoryApi, getCategoryApi, getSingleVideoApi, updateCategoryApi} from '../services/allApi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 
 function Category() {
@@ -81,7 +82,15 @@ function Category() {
     await updateCategoryApi(selectedCategory,categoryID)
   }
 
-  
+  const DragStart = (e,videoID,categoryID)=>{
+    console.log(videoID);
+    console.log(categoryID);
+    let dataShare = {
+      videoID,categoryID
+    }
+    e.dataTransfer.setData("dataShared",JSON.stringify(dataShare))
+  }
+
 
 
 
@@ -99,19 +108,35 @@ function Category() {
         </div>
 
 
-    {categoryDetails?.length>0?categoryDetails.map((item)=>(
-       <div className='border border-secondary mt-3 rounded p-3 ms-4 ms-md-0' droppable onDragOver={(e)=>DragOver(e)} onDrop={(e)=>videoDrag(e,item.id)}>
-       <div className='d-flex mb-3'>
-       <p>{item.CategoryName}</p>
-       <Button onClick={()=>deleteCategory(item.id)}  variant="danger ms-auto"><FontAwesomeIcon icon={faTrash} /></Button>
-       </div>
-         {/* <VideoCard/> */}
-       </div>))
-       :
-       null
 
+{categoryDetails?.length>0? 
+    categoryDetails?.map((item)=>(
+    <div className='mt-md-5 mt-2' droppable onDragOver={(e)=>DragOver(e)} onDrop={(e)=>videoDrag(e,item.id)}>
+      <div className='border border-secondary mt-5 rounded p-3 ms-4 ms-md-0'>
+      <div className='d-flex mb-3'>
+        <p>{item.CategoryName}</p>
+        <Button className='btn btn-danger ms-auto' onClick={()=>deleteCategory(item.id)} variant="danger ms-auto"><FontAwesomeIcon icon={faTrash} /></Button>
+      
+      </div>
+    <Row>
+      {item?.allvideo?.length>0?
+      item?.allvideo?.map((videoItem)=>(<Col sm={12}
+        draggable
+        onDragStart={(e)=>DragStart(e,videoItem.id,item.id)}
+        >
+            <VideoCard content = {videoItem} isPresent={true}/>
+        </Col>
+      ))
+    : null
     }
+    </Row>
+       
+      </div>
+          </div>))
 
+    : null
+}
+    
         <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <h3> <FontAwesomeIcon icon={faPencil} /> Add New Category</h3>
