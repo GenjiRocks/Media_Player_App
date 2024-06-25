@@ -57,3 +57,5 @@ export const getSingleVideoApi = async(id)=>{
 export const updateCategoryApi = async(reqBody,id)=>{
     return await commonApi('PUT',`${serverUrl}/category/${id}`,reqBody)
     }
+
+  

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import VideoCard from './VideoCard'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { getVideoApi } from '../services/allApi';
+import { getVideoApi,getCategoryApi,updateCategoryApi} from '../services/allApi';
 
 function View({addStatus}) {
   const[videodetails,setVideoDetails]=useState([])
@@ -22,9 +22,27 @@ function View({addStatus}) {
     e.preventDefault()
   }
 
-  const videoDrop = (e)=>{
+  const videoDrop = async (e)=>{
     const{videoID,categoryID } = JSON.parse(e.dataTransfer.getData("dataShared"))
     console.log(videoID, categoryID);
+
+    //Get all Category
+    const {data} = await getCategoryApi()
+    console.log(data);
+  // Step 2, Get selected category
+  const selectedCategory = data.find((item)=>item.id === categoryID)
+  console.log(selectedCategory);
+
+    
+    // Step 3, remove video from selected categoryID using put request and reqBo
+    const result = selectedCategory.allvideo.filter((item)=>item.id !== videoID)
+      const reqBody = {
+        CategoryName: selectedCategory.CategoryName,
+        allvideo: result,
+        id:selectedCategory.id
+    }
+    // Step 4,update the details using put api call
+   await updateCategoryApi(reqBody,categoryID)  
   }
 
   useEffect(()=>{
