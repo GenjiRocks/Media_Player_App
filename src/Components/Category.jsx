@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 
-function Category() {
+function Category({dragStatus,setdragStatus}) {
   const [CategoryName, setCategoryName] = useState("");
   const [categoryDetails, setCategoryDetails] = useState([]);
 
@@ -77,9 +77,12 @@ function Category() {
     }else{
       selectedCategory.allvideo.push(data)
      
-      toast.success('Video pushed to allvideo')
+      // toast.success('Video pushed to allvideo')
     }
     await updateCategoryApi(selectedCategory,categoryID)
+
+    // Toggle dragStatus to ensure state update and re-render from CHatGPT
+    setdragStatus((prevStatus) => !prevStatus);
   }
 
   const DragStart = (e,videoID,categoryID)=>{
@@ -97,7 +100,8 @@ function Category() {
   // update on page load useeffect for getallcateory
   useEffect(()=>{
     getAllCategory()
-  },[])
+    setdragStatus(false)
+  },[dragStatus])
 
 
 
@@ -133,8 +137,7 @@ function Category() {
        
       </div>
           </div>))
-
-    : null
+:null
 }
     
         <Modal show={show} onHide={handleClose}>

@@ -8,6 +8,7 @@ import Category from '../Components/Category'
 
 
 function Home() {
+  // For updating category page state lifting june25
   const [dragStatus, setdragStatus] = useState(false);
 
   // june19 state lifting
@@ -22,7 +23,7 @@ function Home() {
    <div className="row w-100 p-4">
     <div className="col-md-9">
       <h4>All Videos</h4>
-      <View addStatus={addStatus}/> {/* Where data is given use the state variable */}
+      <View addStatus={addStatus} setdragStatus={setdragStatus}/> {/* Where data is given use the state variable */}
     </div>
     <div className="col-md-3">
       <Category dragStatus={dragStatus} setdragStatus={setdragStatus}/>

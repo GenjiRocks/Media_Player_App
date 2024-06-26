@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { getVideoApi,getCategoryApi,updateCategoryApi} from '../services/allApi';
 
-function View({addStatus}) {
+function View({addStatus, setdragStatus}) {
   const[videodetails,setVideoDetails]=useState([])
 
     // State lifting for delete
@@ -43,6 +43,8 @@ function View({addStatus}) {
     }
     // Step 4,update the details using put api call
    await updateCategoryApi(reqBody,categoryID)  
+   setdragStatus(true)
+  
   }
 
   useEffect(()=>{
